@@ -38,7 +38,7 @@ jobs:
           installer-parallel: true
       - name: Build Project
         run: |
-          poetry install --only main --sync --no-interaction
+          # poetry install --only main --sync --no-interaction
           poetry shell
           poetry build
           poetry run pip install --upgrade -t package dist/*.whl

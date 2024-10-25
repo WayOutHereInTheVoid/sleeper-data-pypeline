@@ -11,12 +11,21 @@ from utils import write_to_file
 
 load_dotenv()
 
-# TODO - can I create an effective 'scores' csv export that lets me crunch data faster?
-# TODO - given a season and a roster id, figure out the display_name
-  # Can/should I just add a mapping of roster_id::display_name::owner_id/etc to the 'league' collection?
-# TODO - Calculate high scores of the week
-# TODO - How many (and which) players were both drafted and started by the championship team in the championship week?
-def init():
+def lambda_handler(event, context):
+    # Extract arguments from the event (assume they're passed as a dictionary)
+    command = event.get('command', '')
+    season = event.get('season', '')
+
+    # Call the main function with these arguments
+    # init()
+
+    # Return a response
+    return {
+        'statusCode': 200,
+        'body': 'Function executed successfully'
+    }
+
+def parseArgs():
     parser = argparse.ArgumentParser(description="Sleeper pipeline ETL scripts and data utilities")
 
     subparsers = parser.add_subparsers(dest="command", help="Sub-command help")
@@ -39,7 +48,15 @@ def init():
     parser_query.add_argument("season", type=str, help="The season (ex: 2022)")
 
     args = parser.parse_args()
+    return args
 
+
+# TODO - can I create an effective 'scores' csv export that lets me crunch data faster?
+# TODO - given a season and a roster id, figure out the display_name
+  # Can/should I just add a mapping of roster_id::display_name::owner_id/etc to the 'league' collection?
+# TODO - Calculate high scores of the week
+# TODO - How many (and which) players were both drafted and started by the championship team in the championship week?
+def init(args):
     valid_actions = [
         "identify",
         "etl",
@@ -115,4 +132,6 @@ def init():
             print('Query action: {} is not a valid action'.format(args.action))
             raise
 
-init()
+if __name__ == "__main__":
+    args = parseArgs()
+    init(args)
