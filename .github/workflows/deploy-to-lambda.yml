@@ -38,30 +38,11 @@ jobs:
           installer-parallel: true
       - name: Build Project
         run: |
-          # poetry install --only main --sync --no-interaction
-          poetry shell
+          poetry install --only main --sync --no-interaction
           poetry build
           poetry run pip install --upgrade -t package dist/*.whl
-          cd package ; zip -r ../artifact.zip . -x '*.pyc'
-
-          # mkdir -p dist/lambda-package
-          # cp "$(poetry config --list | grep 'cache-dir =' | sed -n '1s/.*"\([^"]*\)".*/\1/p')" dist/lambda-package"
-          # cp --recur
-          # poetry build
-          # poetry run pip install --upgrade -t package dist/*.whl
-
-      # - name: Create a ZIP archive
-      #   run: zip -r sleeper-data-pipeline.zip .
-
+          cd package ; zip -r ../dist/artifact.zip . -x '*.pyc'
       - name: Upload the ZIP file to S3
         run : |
-          ls -laF
-          aws s3 sync artifact.zip s3://sleeper-data-pipeline-backfill-bucket --delete
-
-      # - name: Update the Lambda function
-      #   uses: aws-actions/aws-lambda@v1
-      #   with:
-      #     function-name: arn:aws:lambda:us-west-2:648295097384:function:sleeper-data-pipeline-backfill
-      #     package-type: Zip
-      #     s3-bucket: sleeper-data-pipeline-backfill-bucket
-      #     s3-key: lambda_function.zip
+          ls -laF ./dist
+          aws s3 sync ./dist s3://sleeper-data-pipeline-backfill-bucket --delete
