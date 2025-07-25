@@ -13,6 +13,7 @@ pymongo = "3.11"
 python-dotenv = "^1.0.0"
 dnspython = {extras = ["srv"], version = "^2.3.0"}
 pylint = "^3.0.2"
+flask = "^3.1.1"
 
 
 [build-system]

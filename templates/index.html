@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleeper Data</title>
+</head>
+<body>
+    <h1>Highest FAAB Bids</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Bid</th>
+                <th>Team</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bid in bids %}
+            <tr>
+                <td>{{ bid.player_name }}</td>
+                <td>{{ bid.faab }}</td>
+                <td>{{ bid.owner }}</td>
+                <td>{{ bid.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
